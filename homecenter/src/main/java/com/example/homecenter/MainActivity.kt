@@ -1,9 +1,11 @@
 package com.example.homecenter
 
 import android.app.Service
+import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.widget.AppCompatToggleButton
 import com.example.homecenter.Bluetooth.BleServiceConn
 import com.example.homecenter.Bluetooth.BluetoothService
 import com.example.homecenter.LoWPAN.LoWPANServiceConn
@@ -36,6 +38,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        findViewById<AppCompatToggleButton>(R.id.ble_toggle).setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                BluetoothAdapter.getDefaultAdapter().enable()
+            }else{
+                BluetoothAdapter.getDefaultAdapter().disable()
+            }
+
+        }
+
         bindServices()
     }
 

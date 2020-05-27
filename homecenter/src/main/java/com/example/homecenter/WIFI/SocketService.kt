@@ -24,7 +24,7 @@ class SocketService : BaseRemoteService() {
      * */
     private val connections = LinkedHashMap<String,ClientConnection>()
 
-    private val listenerThread = HandlerThread("socketListener")
+    private val listenerThread = HandlerThread("socketListener").apply { start() }
 
     val serverSocket = ServerSocket().apply {
         //todo 初始化socket
@@ -35,15 +35,15 @@ class SocketService : BaseRemoteService() {
             super.handleMessage(msg)
             when (msg.what) {
                 0 -> {//等待连接
-                    val clientSocket = serverSocket.accept()
-                    val connection = ClientConnection(clientSocket, serverSocket)
-                    //连接成功后 加入集合中
-                    connections.put(clientSocket.inetAddress.toString(),connection)
-                    sendEmptyMessage(0)//开启下一次等待
-                    //通知有用户接入
-                    noticeCenter {
-                        receiveEvent(ClientConnectEvent<String>("0","request_connect","userip").toString())
-                    }
+//                    val clientSocket = serverSocket.accept()
+//                    val connection = ClientConnection(clientSocket, serverSocket)
+//                    //连接成功后 加入集合中
+//                    connections.put(clientSocket.inetAddress.toString(),connection)
+//                    sendEmptyMessage(0)//开启下一次等待
+//                    //通知有用户接入
+//                    noticeCenter {
+//                        receiveEvent(ClientConnectEvent<String>("0","request_connect","userip").toString())
+//                    }
                 }
                 else -> {
 
@@ -55,7 +55,6 @@ class SocketService : BaseRemoteService() {
 
 
     override fun onBind(intent: Intent): IBinder {
-        listenerThread.start()
         listenerHandler.sendEmptyMessage(0)//开启 连接监听
         return super.onBind(intent)
     }

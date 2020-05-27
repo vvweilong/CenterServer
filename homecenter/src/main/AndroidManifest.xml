@@ -9,21 +9,21 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
     <uses-permission android:name="android.permission.INTERNET"/>
 
-    <application android:label="@string/app_name">
+    <application android:label="@string/app_name"
+        android:theme="@style/AppTheme">
         <uses-library android:name="com.google.android.things" />
 
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme">
             <!-- Make this the first activity that is displayed when the device boots. -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -32,17 +32,17 @@
 
         <service
             android:name=".WIFI.SocketService"
-            android:process=":SocketService"
+            android:process=":socket"
             android:enabled="true"
             android:exported="true"/>
         <service
             android:name=".LoWPAN.LoWPANService"
-            android:process=":LoWPANService"
+            android:process=":lowanp"
             android:enabled="true"
             android:exported="true" />
         <service
             android:name=".Bluetooth.BluetoothService"
-            android:process=":BleService"
+            android:process=":bleservice"
             android:enabled="true"
             android:exported="true" />
     </application>

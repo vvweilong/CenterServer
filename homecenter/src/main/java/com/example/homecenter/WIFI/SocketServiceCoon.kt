@@ -2,6 +2,7 @@ package com.example.homecenter.WIFI
 
 import android.content.ComponentName
 import android.os.IBinder
+import android.util.Log
 import com.example.homecenter.base.BaseServiceConn
 
 /**
@@ -12,5 +13,13 @@ class SocketServiceCoon: BaseServiceConn() {
 
     }
 
+    override fun onServiceDisconnected(name: ComponentName?) {
+        super.onServiceDisconnected(name)
+        Log.i("SocketServiceCoon","onServiceDisconnected")
+    }
 
+    override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+        super.onServiceConnected(name, service)
+        Log.i("SocketServiceCoon","onServiceConnected")
+    }
 }
