@@ -1,2 +1,4 @@
 rootProject.name='HomeCenter'
-include ':app'
+include ':homeclient'
+include ':homecenter'
+include ':httplib'
