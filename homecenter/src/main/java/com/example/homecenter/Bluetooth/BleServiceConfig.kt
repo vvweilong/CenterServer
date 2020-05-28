@@ -1,6 +1,7 @@
 package com.example.homecenter.Bluetooth
 
 import android.bluetooth.BluetoothGattCharacteristic
+import android.bluetooth.BluetoothGattDescriptor
 import android.bluetooth.BluetoothGattService
 import java.util.*
 
@@ -16,21 +17,21 @@ import java.util.*
 object BleServiceConfig {
     //周期性通知服务
     const val NOTIFI_SERVICE_UUID = "ae950417-5175-4395-9db5-5ba5cf083050"
-    const val NOTIFI_CHARACTERISTIC_UUID = "ae950417-5175-4395-9db5-5ba5cf083050"
+    const val NOTIFI_CHARACTERISTIC_UUID = "ae950417-5175-4395-9db5-5ba5cf083051"
     //命令读写服务
-    const val CMD_SERVICE_UUID = "ae950417-5175-4395-9db5-5ba5cf083050"
-    const val CMD_READ_CHARACTERISTIC_UUID="ae950417-5175-4395-9db5-5ba5cf083050"
-    const val CMD_WRITE_CHARACTERISTIC_UUID="ae950417-5175-4395-9db5-5ba5cf083050"
+    const val CMD_SERVICE_UUID = "ae950417-5175-4395-9db5-5ba5cf083060"
+    const val CMD_READ_CHARACTERISTIC_UUID="ae950417-5175-4395-9db5-5ba5cf083061"
+    const val CMD_WRITE_CHARACTERISTIC_UUID="ae950417-5175-4395-9db5-5ba5cf083062"
 
 
     fun getServices():List<BluetoothGattService>{
         val notifiService = BluetoothGattService(
-            UUID.fromString(NOTIFI_SERVICE_UUID),
+            UUID.randomUUID(),
+//            UUID.fromString(NOTIFI_SERVICE_UUID),
             BluetoothGattService.SERVICE_TYPE_PRIMARY
         )
-
         val notifiCharacteristic = BluetoothGattCharacteristic(
-            UUID.fromString(NOTIFI_CHARACTERISTIC_UUID),
+            UUID.randomUUID(),
             BluetoothGattCharacteristic.PROPERTY_NOTIFY,
             BluetoothGattCharacteristic.PERMISSION_READ
         )
@@ -38,24 +39,26 @@ object BleServiceConfig {
         notifiService.addCharacteristic(notifiCharacteristic)
 
         val cmdService = BluetoothGattService(
-            UUID.fromString(CMD_SERVICE_UUID),
+//            UUID.fromString(CMD_SERVICE_UUID),
+            UUID.randomUUID(),
             BluetoothGattService.SERVICE_TYPE_PRIMARY
         )
 
         val cmdReadCharacteristic = BluetoothGattCharacteristic(
-            UUID.fromString(CMD_READ_CHARACTERISTIC_UUID),
+            UUID.randomUUID(),
             BluetoothGattCharacteristic.PROPERTY_READ,
             BluetoothGattCharacteristic.PERMISSION_READ
         )
         val cmdWriteCharacteristic = BluetoothGattCharacteristic(
-            UUID.fromString(CMD_WRITE_CHARACTERISTIC_UUID),
+            UUID.randomUUID(),
             BluetoothGattCharacteristic.PROPERTY_WRITE,
             BluetoothGattCharacteristic.PERMISSION_WRITE
         )
         cmdService.addCharacteristic(cmdReadCharacteristic)
         cmdService.addCharacteristic(cmdWriteCharacteristic)
+        cmdService.addCharacteristic(notifiCharacteristic)
 
-        return listOf<BluetoothGattService>(notifiService,cmdService)
+        return listOf<BluetoothGattService>(cmdService)
     }
 
 

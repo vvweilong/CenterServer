@@ -26,10 +26,7 @@ class SocketService : BaseRemoteService() {
 
     private val listenerThread = HandlerThread("socketListener").apply { start() }
 
-    val serverSocket = ServerSocket().apply {
-        //todo 初始化socket
-    }
-
+    lateinit var  serverSocket : ServerSocket
     private val listenerHandler =object :Handler(listenerThread.looper){
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
@@ -51,6 +48,11 @@ class SocketService : BaseRemoteService() {
             }
 
         }
+    }
+
+
+    private fun openServerSocket(){
+        serverSocket = ServerSocket(9999)
     }
 
 

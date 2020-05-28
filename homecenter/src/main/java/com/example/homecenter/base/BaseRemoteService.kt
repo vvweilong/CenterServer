@@ -38,7 +38,7 @@ abstract class BaseRemoteService: Service() {
         return binder
     }
 
-    fun noticeCenter(work: () -> Unit){
+    fun runUi(work: () -> Unit){
         mainHandler.post{
             work.invoke()
         }
@@ -48,7 +48,7 @@ abstract class BaseRemoteService: Service() {
         mCallback?.receiveResult(event)
     }
 
-    fun startWork(work:()->Unit){
+    fun runWork(work:()->Unit){
         threadPool.submit {
             work.invoke()
         }

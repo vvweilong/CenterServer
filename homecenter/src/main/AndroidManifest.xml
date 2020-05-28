@@ -32,17 +32,17 @@
 
         <service
             android:name=".WIFI.SocketService"
-            android:process=":socket"
+            android:process=".socket"
             android:enabled="true"
             android:exported="true"/>
         <service
             android:name=".LoWPAN.LoWPANService"
-            android:process=":lowanp"
+            android:process=".lowanp"
             android:enabled="true"
             android:exported="true" />
         <service
             android:name=".Bluetooth.BluetoothService"
-            android:process=":bleservice"
+            android:process=".bleservice"
             android:enabled="true"
             android:exported="true" />
     </application>

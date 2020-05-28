@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatToggleButton
 import com.example.homecenter.Bluetooth.BleServiceConn
 import com.example.homecenter.Bluetooth.BluetoothService
@@ -55,15 +56,21 @@ class MainActivity : AppCompatActivity() {
         //绑定蓝牙服务
         val bleIntent = Intent(this,BluetoothService::class.java)
         bindService(bleIntent,bleService,Service.BIND_AUTO_CREATE)
+        bleService.setActionCallback {data: String? ->
+            runOnUiThread({
+                findViewById<TextView>(R.id.log_tv).text = data
+            })
+
+        }
         // socket服务
-        val socketIntent = Intent(this,SocketService::class.java)
-        bindService(socketIntent,socketService,Service.BIND_AUTO_CREATE)
-        //
+//        val socketIntent = Intent(this,SocketService::class.java)
+//        bindService(socketIntent,socketService,Service.BIND_AUTO_CREATE)
+
     }
     private fun unbindServices(){
         //解绑蓝牙服务
         unbindService(bleService)
-        unbindService(socketService)
+//        unbindService(socketService)
 
     }
 
