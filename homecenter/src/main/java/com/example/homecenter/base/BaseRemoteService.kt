@@ -29,7 +29,7 @@ abstract class BaseRemoteService: Service() {
         }
 
         override fun sendCommand(cmd: String?) {
-
+            // 上层或者其他应用 通过这个方法 向当前服务发送命令 并通过mCallback执行异步返回操作
         }
     }
 
